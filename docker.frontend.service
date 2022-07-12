@@ -1,0 +1,18 @@
+[Unit]
+Description=Expose frontend service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+Environment="PORT=8040"
+Environment="AUTH_API_ADDRESS=http://172.31.0.118:8050"
+Environment="ZIPKIN_URL=http://172.31.4.199:9411/api/v2/spans"
+Environment="TODOS_API_ADDRESS=http://172.31.1.110:8060"
+
+WorkingDirectory=/home/ubuntu
+ExecStartPre=/usr/bin/docker compose -f docker-compose.yml down
+ExecStart=/usr/bin/docker compose -f docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f docker-compose.yml stop
+[Install]
+WantedBy=default.target

@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+
+  auth-api:
+    container_name: frontend
+    image: daramirezs/frontend:1.0
+    environment:
+      - PORT
+      - ZIPKIN_URL
+      - TODOS_API_ADDRESS
+      - AUTH_API_ADDRESS
+    ports:
+      - '8040:8040'
